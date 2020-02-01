@@ -36,12 +36,15 @@ page_sections:
   - template: two-columns
     columns:
     - template: image
-      alttext: ""
+      alttext: Person working with a server
       src: "/uploads/temp-image.png"
-      title: ""
+      title: Introducing enhanced services from DataONE
       type: default
     - template: markdown
-      content: "## Enhance your research with **services from DataONE**"
+      content: |-
+        ## Enhance your research with **services from DataONE**
+
+        In publishing and graphic design, lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. In publishing and graphic design, lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.
   - template: three-columns
     columns:
     - template: feature-simple
@@ -134,11 +137,11 @@ page_sections:
   - template: feature-detailed
     headline: Open Source
     image:
-        template: image
-        src: "uploads/temp-image.png"
-        alttext: ""
-        title: ""
-        type: default
+      template: image
+      src: uploads/temp-image.png
+      alttext: ''
+      title: ''
+      type: default
     text: DataONE hosted repositories represent stand-alone deployments of the open
       source [Metacat](https://knb.ecoinformatics.org/knb/docs/) repository server
       and [MetacatUI](https://github.com/NCEAS/metacatui) search and metadata management
@@ -159,11 +162,11 @@ page_sections:
   - template: feature-detailed
     headline: Universal access to data
     image:
-        template: image
-        src: "uploads/temp-image.png"
-        alttext: ""
-        title: ""
-        type: default
+      template: image
+      src: uploads/temp-image.png
+      alttext: ''
+      title: ''
+      type: default
     text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.
     type: left
