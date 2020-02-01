@@ -37,7 +37,7 @@ page_sections:
     columns:
     - template: image
       alttext: Person working with a server
-      src: "/uploads/temp-image.png"
+      src: "/uploads/scientist-and-server.png"
       title: Introducing enhanced services from DataONE
       type: default
     - template: markdown
@@ -52,7 +52,7 @@ page_sections:
         template: icon
         size: large
         style: default
-        name: temp-icon
+        name: ''
       headline: Lorem ipsum
       text: In publishing and graphic design, lorem ipsum is a placeholder text commonly
         used to demonstrate the visual form of a document or a typeface without relying
@@ -62,7 +62,7 @@ page_sections:
         template: icon
         size: large
         style: default
-        name: temp-icon
+        name: ''
       headline: Lorem ipsum
       text: In publishing and graphic design, lorem ipsum is a placeholder text commonly
         used to demonstrate the visual form of a document or a typeface without relying
@@ -72,7 +72,7 @@ page_sections:
         template: icon
         size: large
         style: default
-        name: temp-icon
+        name: ''
       headline: Lorem ipsum
       text: In publishing and graphic design, lorem ipsum is a placeholder text commonly
         used to demonstrate the visual form of a document or a typeface without relying
