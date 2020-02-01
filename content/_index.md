@@ -103,7 +103,7 @@ page_sections:
         template: icon
         size: large
         style: default
-        name: temp-icon
+        name: ''
       headline: Upcoming webinar
       text: In publishing and graphic design, lorem ipsum is a placeholder text commonly
         used to demonstrate the visual form of a document or a typeface without relying
@@ -113,7 +113,7 @@ page_sections:
         template: icon
         size: large
         style: default
-        name: temp-icon
+        name: ''
       headline: Featured skill
       text: In publishing and graphic design, lorem ipsum is a placeholder text commonly
         used to demonstrate the visual form of a document or a typeface without relying
@@ -138,9 +138,9 @@ page_sections:
     headline: Open Source
     image:
       template: image
-      src: uploads/temp-image.png
-      alttext: ''
-      title: ''
+      src: "/uploads/metacat-on-github.png"
+      alttext: DataONE on GitHub
+      title: DataONE on Github
       type: default
     text: DataONE hosted repositories represent stand-alone deployments of the open
       source [Metacat](https://knb.ecoinformatics.org/knb/docs/) repository server
