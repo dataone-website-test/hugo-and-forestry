@@ -9,7 +9,7 @@ on:
 
 jobs:
   job_1:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     name: Get Date Yesterday
     steps:
       - name: See if the date command works
