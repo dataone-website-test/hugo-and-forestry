@@ -5,37 +5,24 @@ env:
 on:
   push:
   schedule:
-    - cron: "* * * * *"
+    - cron: "00 00 * * *"
 
 jobs:
   job_1:
     runs-on: macos-latest
     name: Get Date Yesterday
     steps:
+      - uses: octokit/request-action@v2.x
+        id: get_commits
+        with:
+          route: GET /repos/:repository/commits
+          repository: ${{ github.repository }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: "echo commits: ${{ steps.get_commits.outputs.data }}"
+      - run: "jq '. | length' ${{ steps.get_commits.outputs.data }}"
       - name: See if the date command works
         shell: bash
         run: |
-          date -v -1d -u +'%FT%T.%2NZ' 
-      - name: Get commits save as var
-        shell: bash
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-              curl -sL "https://api.github.com/repos/$GITHUB_REPOSITORY/commits" > $HOME/commit.json
-              echo $(head -n 10 $HOME/commit.json)
-              numcommits="$(jq '. | length' $HOME/commit.json)"
-              echo "Number of commits : $numcommits"
-              echo ::set-env name=TEST_VAR::true
-              if [ $numcommits -gt 0 ]; then
-                echo ::set-env name=UPDATES::true
-              fi
-      - name:  Test testvar
-        if:    env.TEST_VAR == 'true'
-        run:   echo "Test var is true"
-        shell: bash
-      - name:  Test updates var
-        if:    env.UPDATES == 'true'
-        run:   echo "UPDATES var is true"
-        shell: bash
-
+          date -v -1d -u +'%FT%T.%2NZ'
   
