@@ -16,7 +16,10 @@ jobs:
         shell: bash
         run: |
           date -v -1d -u +'%FT%T.%2NZ' 
-      - name: Try the API call with jq
+      - name: Try API call with jq
+        shell: bash
+        run: curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits?since=2019-05-12T16:42:29.2NZ" | jq '. | length'
+      - name: Try the API call with date var
         shell: bash
         run: curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits?since=`date -v -1d -u +'%FT%T.%2NZ'`" . | jq '. | length'
       - name: Now try to set val as var
