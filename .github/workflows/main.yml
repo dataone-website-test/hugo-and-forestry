@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-        "echo ${{steps.get_commits.outputs.data }}"
+          echo ${{ steps.get_commits.outputs.data }}
       - run: "jq '. | length' ${{ steps.get_commits.outputs.data }}"
       - run: "jq '. | length' ${{ fromJson(steps.get_commits.outputs.data) }}"
       - name: See if the date command works
