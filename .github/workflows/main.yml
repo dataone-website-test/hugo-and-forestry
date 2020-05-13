@@ -1,14 +1,23 @@
-name: Test github actions
+name: Monitor for updates
 env:
   TEST: this is a test variable
+
 on:
-  schedule:
-    # Every minute
-    - cron: '* * * * *'
+  push:
+    branches:    
+      - master         # Push events on master branch
+
 jobs:
-  build:
-    name: Job1
+  set_new_commits:
     runs-on: ubuntu-latest
+    name: Make artifact indicating repo changes
     steps:
-      - name: 
-        run: echo 'Hello world, ${{ env.TEST }}'
+      - name: Set new_commits value to true
+        shell: bash
+        run: |
+          "TRUE" > new_commits.txt
+      - name: Upload the new commits artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: new_commits
+          path: new_commits.txt
