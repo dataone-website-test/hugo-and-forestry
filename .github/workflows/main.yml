@@ -1,0 +1,14 @@
+name: Test github actions
+env:
+  TEST: this is a test variable
+on:
+  schedule:
+    # Every minute
+    - cron: '* * * * *'
+jobs:
+  build:
+    name: Job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: 
+        run: echo 'Hello world, ${{ env.TEST }}'
