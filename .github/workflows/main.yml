@@ -19,7 +19,7 @@ jobs:
           repository: ${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: "fromJson(steps.get_commits.outputs.data)"
+      - run: ${{ fromJson(steps.create_check_run.outputs.data).id }}
       - run: "jq '. | length' fromJson(steps.get_commits.outputs.data)"
       - name: See if the date command works
         shell: bash
