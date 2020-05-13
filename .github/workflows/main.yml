@@ -15,7 +15,7 @@ jobs:
       - name: Get commits save as var
         shell: bash
         run: |
-              curl -sL -u username:${{ secrets.GITHUB_TOKEN }} "https://api.github.com/repos/$GITHUB_REPOSITORY/commits?since=`date -v -1d -u +'%FT%T.%2NZ'`" > $HOME/commit.json
+              curl -sL -u username:${{ secrets.GITHUB_TOKEN }} "https://api.github.com/repos/$GITHUB_REPOSITORY/commits?since=`date -u +'%FT%T.%2NZ'`" > $HOME/commit.json
               echo $(head -n 10 $HOME/commit.json)
               numcommits="$(jq '. | length' $HOME/commit.json)"
               echo "Number of commits : $numcommits"
