@@ -3,16 +3,28 @@ env:
   TEST: this is a test variable
 
 on:
+  push:
   schedule:
     - cron: "* * * * *"
 
 jobs:
   job_1:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     name: Get Date Yesterday
     steps:
-      - name: Set date
+      - name: See if the date command works
         shell: bash
         run: |
           date -v -1d -u +'%FT%T.%2NZ' 
+      - name: Try the API call with jq
+        shell: bash
+        run: |
+          curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits?since=`date -v -1d -u +'%FT%T.%2NZ'`" . | jq '. | length'
+      - name: Now try to set val as var
+        shell: bash
+        run: echo ::set-env name=COMMIT_COUNT::$(curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits?since=`date -v -1d -u +'%FT%T.%2NZ'`" . | jq '. | length')
+      - name: Try to access val
+        shell: bash
+        run: echo $COMMIT_COUNT
+           
   
