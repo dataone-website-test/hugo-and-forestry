@@ -1,38 +1,18 @@
-name: Monitor for updates
+name: Test Workflow
 env:
   TEST: this is a test variable
 
 on:
-  push:
-    branches:    
-      - master         # Push events on master branch
+  schedule:
+    - cron: "* * * * *"
 
 jobs:
-  set_new_commits:
+  job_1:
     runs-on: ubuntu-latest
-    name: Make artifact indicating repo changes
+    name: Get Date Yesterday
     steps:
-      - name: Set new_commits value to true
+      - name: Set date
         shell: bash
         run: |
-          echo "TRUE" > new_commits.txt
-      - name: Upload the new commits artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: new_commits
-          path: new_commits.txt
-  job_3:
-    name: Check artifact
-    needs: set_new_commits
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact from first step
-        uses: actions/download-artifact@v1
-        with:
-          name: new_commits
-      - name: Print the final result
-        shell: bash
-        run: |
-          value=`cat new_commits/new_commits.txt`
-          echo The result is $value  
+          echo date -u +'%FT%T.%2NZ' -d "yesterday"
   
