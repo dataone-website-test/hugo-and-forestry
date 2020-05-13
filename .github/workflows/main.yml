@@ -16,17 +16,23 @@ jobs:
         shell: bash
         run: |
           date -v -1d -u +'%FT%T.%2NZ' 
-      - name: Try API call with jq
+      - name: Get commits save as var
         shell: bash
-        run: curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits?since=2019-05-12T16:42:29.2NZ" | jq '. | length'
-      - name: Try the API call with date var
+        run: |
+              curl -sL https://api.github.com/repos/$GITHUB_REPOSITORY/commits > $HOME/commit.json
+              numcommits="$('. | length' $HOME/commit.json)"
+              echo "Number of commits : $numcommits"
+              echo ::set-env name=TEST_VAR::true
+              if [ $numcommits -gt 0 ]; then
+                echo ::set-env name=UPDATES::true
+              fi
+      - name:  Test testvar
+        if:    env.TEST_VAR == 'true'
+        run:   echo "Test var is true"
         shell: bash
-        run: curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits?since=`date -v -1d -u +'%FT%T.%2NZ'`" . | jq '. | length'
-      - name: Now try to set val as var
+      - name:  Test updates var
+        if:    env.UPDATES == 'true'
+        run:   echo "UPDATES var is true"
         shell: bash
-        run: echo ::set-env name=COMMIT_COUNT::$(curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits?since=`date -v -1d -u +'%FT%T.%2NZ'`" . | jq '. | length')
-      - name: Try to access val
-        shell: bash
-        run: echo $COMMIT_COUNT
-           
+
   
