@@ -19,8 +19,8 @@ jobs:
       - name: Get commits save as var
         shell: bash
         run: |
-              curl -sL https://api.github.com/repos/$GITHUB_REPOSITORY/commits > $HOME/commit.json
-              numcommits="$('. | length' $HOME/commit.json)"
+              curl -sL "https://api.github.com/repos/$GITHUB_REPOSITORY/dataone-website-test/hugo-and-forestry/commits" > $HOME/commit.json
+              numcommits="$(jq '. | length' $HOME/commit.json)"
               echo "Number of commits : $numcommits"
               echo ::set-env name=TEST_VAR::true
               if [ $numcommits -gt 0 ]; then
