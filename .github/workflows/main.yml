@@ -10,7 +10,7 @@ on:
 jobs:
   job_1:
     runs-on: macos-latest
-    name: Get Date Yesterday
+    name: Testing
     steps:
       - uses: octokit/request-action@v2.x
         id: get_commits
@@ -19,7 +19,8 @@ jobs:
           repository: ${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: "jq '. | length' ${{ fromJson(steps.get_commits.outputs.data) }}"
+      - run: "fromJson(steps.get_commits.outputs.data)"
+      - run: "jq '. | length' fromJson(steps.get_commits.outputs.data)"
       - name: See if the date command works
         shell: bash
         run: |
