@@ -15,19 +15,14 @@ jobs:
       - name: Get commits save as var
         shell: bash
         run: |
-              curl -sL -u username:${{ secrets.GITHUB_TOKEN }} "https://api.github.com/repos/$GITHUB_REPOSITORY/commits" > $HOME/commit.json
+              curl -sL -u username:${{ secrets.GITHUB_TOKEN }} "https://api.github.com/repos/$GITHUB_REPOSITORY/commits?since=`date -v -1d -u +'%FT%T.%2NZ'`" > $HOME/commit.json
               echo $(head -n 10 $HOME/commit.json)
               numcommits="$(jq '. | length' $HOME/commit.json)"
               echo "Number of commits : $numcommits"
-              echo ::set-env name=TEST_VAR::true
               if [ $numcommits -gt 0 ]; then
                 echo ::set-env name=UPDATES::true
               fi
-      - name:  Test testvar
-        if:    env.TEST_VAR == 'true'
-        run:   echo "Test var is true"
-        shell: bash
       - name:  Test updates var
         if:    env.UPDATES == 'true'
-        run:   echo "UPDATES var is true"
+        run:   echo "This is where we will send command to Netlify"
         shell: bash
