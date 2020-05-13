@@ -20,7 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          echo "${{ fromJson(steps.get_commits.outputs.data) }}" > $HOME/commit.json
+          echo ${{ steps.get_commits.outputs.data }} > $HOME/commit.json
           echo $(head -n 10 $HOME/commit.json)
               numcommits="$(jq '. | length' $HOME/commit.json)"
               echo "Number of commits : $numcommits"
