@@ -18,8 +18,10 @@ jobs:
           date -v -1d -u +'%FT%T.%2NZ' 
       - name: Get commits save as var
         shell: bash
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-              curl -sL "https://api.github.com/repos/dataone-website-test/hugo-and-forestry/commits" > $HOME/commit.json
+              curl -sL "https://api.github.com/repos/$GITHUB_REPOSITORY/commits" > $HOME/commit.json
               echo $(head -n 10 $HOME/commit.json)
               numcommits="$(jq '. | length' $HOME/commit.json)"
               echo "Number of commits : $numcommits"
