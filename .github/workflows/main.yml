@@ -23,4 +23,6 @@ jobs:
               fi
       - name: Trigger build of preview branch webhook on Netlify
         if: env.UPDATES == 'true'
-        run: echo "The last step"
+        run: curl -s -X POST "https://api.netlify.com/build_hooks/${TOKEN}"
+        env:
+          TOKEN: "12345"
