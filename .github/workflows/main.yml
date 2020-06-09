@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: Test step
         shell: bash
-        run: echo "First step"
+        run: |
+              echo "First step"
       - name: Get commits save as var
         shell: bash
         run: |
