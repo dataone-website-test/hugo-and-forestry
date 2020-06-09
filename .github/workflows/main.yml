@@ -1,6 +1,8 @@
 name: Trigger Netlify Build
 on:
   push:
+    branches:
+    - preview
   schedule:
     - cron: '00 11 * * *'
 jobs:
@@ -13,7 +15,7 @@ jobs:
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-              curl -sL -u username:$GH_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/commits?sha=master&since=`date -v -1d -u +'%FT%T.%2Z'`" > $HOME/commit.json
+              curl -sL -u username:$GH_TOKEN "https://api.github.com/repos/$GITHUB_REPOSITORY/commits?sha=preview&since=`date -v -1d -u +'%FT%T.%2Z'`" > $HOME/commit.json
               echo $(head -n 10 $HOME/commit.json)
               numcommits="$(jq '. | length' $HOME/commit.json)"
               echo "Number of commits : $numcommits"
