@@ -1,32 +1,26 @@
-name: Test Workflow
-env:
-  TEST: this is a test variable
-
+name: Trigger Netlify Build
 on:
   push:
   schedule:
-    - cron: "00 00 * * *"
-
+    - cron: '00 11 * * *'
 jobs:
-  job_1:
+  update_preview:
     runs-on: macos-latest
-    name: Testing
+    name: Request Netlify Webhook
     steps:
       - name: Test step
         shell: bash
-        run: |
-              echo "First step"
-      - name: Get commits save as var
+        run: echo "The first step was run"
+      - name: Count commits over last 24 hours
         shell: bash
         run: |
-              curl -sL -u username:${{ secrets.GITHUB_TOKEN }} "https://api.github.com/repos/$GITHUB_REPOSITORY/commits?since=`date -v -1d -u +'%FT%T.%2Z'`" > $HOME/commit.json
+              curl -sL -u username:${{ secrets.GITHUB_TOKEN }} "https://api.github.com/repos/$GITHUB_REPOSITORY/commits?sha=preview&since=`date -v -1d -u +'%FT%T.%2Z'`" > $HOME/commit.json
               echo $(head -n 10 $HOME/commit.json)
               numcommits="$(jq '. | length' $HOME/commit.json)"
               echo "Number of commits : $numcommits"
               if [ $numcommits -gt 0 ]; then
                 echo ::set-env name=UPDATES::true
               fi
-      - name:  Test updates var
-        if:    env.UPDATES == 'true'
-        run:   echo "This is where we will send command to Netlify"
-        shell: bash
+      - name: Trigger build of preview branch webhook on Netlify
+        if: env.UPDATES == 'true'
+        run: echo "The last step"
