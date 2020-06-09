@@ -9,7 +9,7 @@ on:
 
 jobs:
   job_1:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     name: Testing
     steps:
       - name: Get commits save as var
